@@ -16,8 +16,9 @@ import (
 
 // Playlist holds the metadata for a YouTube playlist.
 type Playlist struct {
-	id    string
-	title string
+	id      string
+	title   string
+	service string
 }
 
 // NewYouTubePlaylist gathers the metadata for a YouTube playlist and returns it.

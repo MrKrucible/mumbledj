@@ -19,4 +19,5 @@ type AudioClip interface {
 	Duration() string
 	Thumbnail() string
 	Playlist() Playlist
+	Service() string
 }

@@ -12,4 +12,5 @@ package service
 type Playlist interface {
 	ID() string
 	Title() string
+	Service() string
 }

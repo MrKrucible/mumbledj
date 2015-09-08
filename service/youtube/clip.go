@@ -27,6 +27,7 @@ type AudioClip struct {
 	duration  string
 	thumbnail string
 	playlist  Playlist
+	service   string
 }
 
 // NewYouTubeAudioClip gathers the metadata for an audio clip extracted from a
@@ -75,6 +76,7 @@ func NewYouTubeAudioClip(user, id, offset string, playlist *Playlist) (*AudioCli
 		duration:  durationString,
 		thumbnail: thumbnail,
 		playlist:  nil,
+		service:   "YouTube",
 	}
 
 	return clip, nil
@@ -127,15 +129,20 @@ func (c *AudioClip) Playlist() Playlist {
 	return c.playlist
 }
 
+// Service returns the service the AudioClip comes from.
+func (c *AudioClip) Service() string {
+	return c.service
+}
+
 // ParseOffset parses a YouTube video offset and returns the parsed result in
 // int64's of the offset days, hours, minutes, and seconds.
 func ParseOffset(offset string) (int64, int64, int64, int64) {
 	var offsetDays, offsetHours, offsetMinutes, offsetSeconds int64
 	offsetRegex := regexp.MustCompile(`t\=(?P<days>\d+d)?(?P<hours>\d+h)?(?P<minutes>\d+m)?(?P<seconds>\d+s)?`)
-	offsetMatch := offsetRegexp.FindStringSubmatch(offset)
+	offsetMatch := offsetRegex.FindStringSubmatch(offset)
 	offsetResult := make(map[string]string)
 
-	for i, name := range offsetRegexp.SubexpNames() {
+	for i, name := range offsetRegex.SubexpNames() {
 		if i < len(offsetMatch) {
 			offsetResult[name] = offsetMatch[i]
 		}

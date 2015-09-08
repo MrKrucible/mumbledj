@@ -28,6 +28,7 @@ type MumbleDJ struct {
 	audioStream    *gumble_ffmpeg.Stream
 	logger         *log.Logger
 	cache          *AudioCache
+	queue          *AudioQueue
 }
 
 // OnConnect event. First moves MumbleDJ into the default channel specified
